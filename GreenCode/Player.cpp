@@ -6,11 +6,7 @@ Player::Player(sf::Vector2f startPosition, int initialHealth)
     shape.setPosition(startPosition);
     shape.setFillColor(sf::Color::Green);
     velocity = sf::Vector2f(0.0f, 0.0f);
-    speed = 0.075f;
-}
-
-sf::RectangleShape& Player::getShape() {
-    return shape;
+    speed = 10.0f;
 }
 
 void Player::handleInput() {
@@ -40,6 +36,6 @@ void Player::takeDamage(int damage) {
     }
 }
 
-void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    target.draw(shape, states);
+sf::RectangleShape& Player::getShape() {
+    return shape;
 }

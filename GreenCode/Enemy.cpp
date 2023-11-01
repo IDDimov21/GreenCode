@@ -7,11 +7,8 @@ Enemy::Enemy(sf::Vector2f startPosition, int initialHealth)
     shape.setFillColor(sf::Color::Red);
 }
 
-sf::RectangleShape& Enemy::getShape() {
-    return shape;
-}
-
 void Enemy::update() {
+    // Implement enemy behavior here (if any).
 }
 
 int Enemy::getHealth() const {
@@ -25,6 +22,6 @@ void Enemy::takeDamage(int damage) {
     }
 }
 
-void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    target.draw(shape, states);
+sf::RectangleShape& Enemy::getShape() {
+    return shape;
 }
