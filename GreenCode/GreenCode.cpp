@@ -60,7 +60,8 @@ int main() {
             if (!battleStarted) {
                 if (player.getShape().getGlobalBounds().intersects(enemy.getShape().getGlobalBounds())) {
                     battleStarted = true;
-                } else {
+                }
+                else {
                     player.handleInput();
                     player.update();
                 }
@@ -72,20 +73,24 @@ int main() {
                         // Check for mouse click on draggable elements.
                         if (optionH.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
                             // Logic for dragging option H.
-                        } else if (optionO.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+                        }
+                        else if (optionO.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
                             // Logic for dragging option O.
                         }
-                    } else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
+                    }
+                    else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
                         // Check for mouse release on answer slots.
                         if (answerSlot1.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
                             // Logic for dropping option H into slot 1.
                             // Check if the answer is correct and update the game accordingly.
-                        } else if (answerSlot2.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+                        }
+                        else if (answerSlot2.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
                             // Logic for dropping option O into slot 2.
                             // Check if the answer is correct and update the game accordingly.
                         }
                     }
-                } else {
+                }
+                else {
                     if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Space) {
                         if (currentQuestionIndex < questions.size() - 1) {
                             currentQuestionIndex++;
@@ -93,7 +98,8 @@ int main() {
                             // Reset the draggable elements to their original positions.
                             optionH.setPosition(100, 500);
                             optionO.setPosition(200, 500);
-                        } else {
+                        }
+                        else {
                             window.close();
                         }
                     }
@@ -106,7 +112,8 @@ int main() {
         if (!battleStarted) {
             window.draw(player.getShape());
             window.draw(enemy.getShape());
-        } else {
+        }
+        else {
             window.draw(questionText);
             if (!questionAnswered) {
                 window.draw(optionH);
