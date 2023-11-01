@@ -1,11 +1,16 @@
 #include "Player.h"
 
-Player::Player(sf::Vector2f startPosition) {
+Player::Player(sf::Vector2f startPosition, int initialHealth)
+    : health(initialHealth) {
     shape.setSize(sf::Vector2f(50.0f, 50.0f));
     shape.setPosition(startPosition);
     shape.setFillColor(sf::Color::Green);
     velocity = sf::Vector2f(0.0f, 0.0f);
     speed = 0.075f;
+}
+
+sf::RectangleShape& Player::getShape() {
+    return shape;
 }
 
 void Player::handleInput() {
@@ -18,18 +23,23 @@ void Player::handleInput() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         velocity.x = speed;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        velocity.y = -speed;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        velocity.y = speed;
-    }
 }
 
 void Player::update() {
     shape.move(velocity);
 }
 
-void Player::draw(sf::RenderWindow& window) {
-    window.draw(shape);
+int Player::getHealth() const {
+    return health;
+}
+
+void Player::takeDamage(int damage) {
+    health -= damage;
+    if (health < 0) {
+        health = 0;
+    }
+}
+
+void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    target.draw(shape, states);
 }
