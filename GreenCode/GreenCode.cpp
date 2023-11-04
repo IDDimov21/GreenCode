@@ -28,12 +28,14 @@ int main() {
     answerSlot1.setOutlineThickness(2);
     answerSlot1.setOutlineColor(sf::Color::White);
     bool isOptionHInSlot1 = false;
+    bool isOptionOInSlot1 = false;
 
     sf::RectangleShape answerSlot2(sf::Vector2f(100, 50));
     answerSlot2.setPosition(200, 100);
     answerSlot2.setFillColor(sf::Color::Transparent);
     answerSlot2.setOutlineThickness(2);
     answerSlot2.setOutlineColor(sf::Color::White);
+    bool isOptionHInSlot2 = false;
     bool isOptionOInSlot2 = false;
 
     sf::Font font;
@@ -67,7 +69,7 @@ int main() {
                     if (!isOptionHInSlot1 && optionH.getGlobalBounds().contains(mousePosition)) {
                         isDraggingOptionH = true;
                     }
-                    if (!isOptionOInSlot2 && optionO.getGlobalBounds().contains(mousePosition)) {
+                    if (!isOptionOInSlot1 && optionO.getGlobalBounds().contains(mousePosition)) {
                         isDraggingOptionO = true;
                     }
                 }
@@ -78,26 +80,34 @@ int main() {
 
                         if (answerSlot1.getGlobalBounds().contains(mousePosition)) {
                             isOptionHInSlot1 = true;
+                            optionH.setPosition(answerSlot1.getPosition().x, answerSlot1.getPosition().y); // Snap to slot.
                         }
-                        else {
-                            optionH.setPosition(100, 500); // Return to the original position.
+                        else if (answerSlot2.getGlobalBounds().contains(mousePosition)) {
+                            isOptionHInSlot2 = true;
+                            optionH.setPosition(answerSlot2.getPosition().x, answerSlot2.getPosition().y); // Snap to slot.
                         }
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     }
                     if (isDraggingOptionO) {
                         isDraggingOptionO = false;
                         sf::Vector2f mousePosition(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y));
 
-                        if (answerSlot2.getGlobalBounds().contains(mousePosition)) {
+                        if (answerSlot1.getGlobalBounds().contains(mousePosition)) {
+                            isOptionOInSlot1 = true;
+                            optionO.setPosition(answerSlot1.getPosition().x, answerSlot1.getPosition().y); // Snap to slot.
+                        }
+                        else if (answerSlot2.getGlobalBounds().contains(mousePosition)) {
                             isOptionOInSlot2 = true;
+                            optionO.setPosition(answerSlot2.getPosition().x, answerSlot2.getPosition().y); // Snap to slot.
                         }
                         else {
-                            optionO.setPosition(200, 500); // Return to the original position.
+                            optionH.setPosition(100, 500); // Return to the original position.
+                            optionO.setPosition(100, 500); // Return to the original position.
                         }
-                    }
-
-                    if (isOptionHInSlot1 && isOptionOInSlot2) {
-                        // Both options were placed correctly, display finish text.
-                        finishTextShown = true;
+                        if ((isOptionHInSlot1 && isOptionOInSlot2) || (isOptionHInSlot2 && isOptionOInSlot1)) {
+                            // Both options were placed correctly, display finish text.
+                            finishTextShown = true;
+                        }
                     }
                 }
                 else if (event.type == sf::Event::MouseMoved) {
@@ -109,41 +119,49 @@ int main() {
                     }
                 }
             }
-        }
 
-        window.clear();
+            window.clear();
 
-        if (!battleStarted) {
-            window.draw(player.getShape());
-            window.draw(enemy.getShape());
-        }
-        else {
-            window.draw(optionH);
-            window.draw(optionO);
-            window.draw(answerSlot1);
-            window.draw(answerSlot2);
-
-            if (finishTextShown) {
-                sf::Text finishText;
-                finishText.setFont(font);
-                finishText.setCharacterSize(40);
-                finishText.setFillColor(sf::Color::White);
-                finishText.setString("Finish Text");
-                finishText.setPosition(300, 300);
-                window.draw(finishText);
+            if (!battleStarted) {
+                window.draw(player.getShape());
+                window.draw(enemy.getShape());
             }
+            else {
+                window.draw(player.getShape());
+                window.draw(enemy.getShape());
+                window.draw(optionH);
+                window.draw(optionO);
+                window.draw(answerSlot1);
+                window.draw(answerSlot2);
+
+                if (finishTextShown) {
+                    sf::Text finishText;
+                    finishText.setFont(font);
+                    finishText.setCharacterSize(40);
+                    finishText.setFillColor(sf::Color::White);
+
+                    if ((isOptionHInSlot1 && isOptionOInSlot2)) {
+                        finishText.setString("Congratulations, you win!");
+                    }
+                    else {
+                        finishText.setString("Options placed incorrectly. Restarting game...");
+                        // Reset the game if options are placed incorrectly.
+                        isOptionHInSlot1 = false;
+                        isOptionHInSlot2 = false;
+                        isOptionOInSlot1 = false;
+                        isOptionOInSlot2 = false;
+                        optionH.setPosition(100, 500);
+                        optionO.setPosition(200, 500);
+                        finishTextShown = false;
+                    }
+
+                    finishText.setPosition(250, 300);
+                    window.draw(finishText);
+                }
+            }
+
+            window.display();
         }
-
-        sf::Text playerHealthText;
-        playerHealthText.setFont(font);
-        playerHealthText.setCharacterSize(20);
-        playerHealthText.setFillColor(sf::Color::White);
-        playerHealthText.setString("Player Health: " + std::to_string(player.getHealth()));
-        playerHealthText.setPosition(10.0f, 10.0f);
-
-        window.draw(playerHealthText);
-
-        window.display();
     }
 
     return 0;
