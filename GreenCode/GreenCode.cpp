@@ -6,9 +6,8 @@
 
 using namespace sf;
 
-
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Battle Game");
+    sf::RenderWindow window(sf::VideoMode(1000, 1000), "Battle Game");
 
     Player player(sf::Vector2f(100.0f, 450.0f), 100);
     Enemy enemy(sf::Vector2f(600.0f, 450.0f), 100);
@@ -47,7 +46,15 @@ int main() {
     int currentQuestionIndex = 0; // Index of the current question.
 
     bool battleStarted = false;
-    bool finishTextShown = false;
+    bool returnBoxesToOriginalPlaces = false;
+    bool allBoxesFilled = false; // Flag to track if all boxes are filled
+
+    // Health variables for the player and enemy
+    int playerHealth = 100;
+    int enemyHealth = 100;
+
+    // Create a question
+    Question question("What is 2 + 2?", "4");
 
     while (window.isOpen()) {
         sf::Event event;
@@ -91,13 +98,13 @@ int main() {
                         }
                         else {
                             optionH.setPosition(100, 500); // Return to the original position.
-                            optionO.setPosition(100, 500); // Return to the original position.
+                            optionO.setPosition(200, 500); // Return to the original position.
+                            returnBoxesToOriginalPlaces = true;
+                            allBoxesFilled = false;
                         }
-                        if ((isOptionHInSlot1 && isOptionOInSlot2) || (isOptionHInSlot2 && isOptionOInSlot1)) {
-                            // Both options were placed correctly, display finish text.
-                            finishTextShown = true;
+                        if (isOptionHInSlot1 && isOptionOInSlot2) {
+                            allBoxesFilled = true;
                         }
-
                     }
                     if (isDraggingOptionO) {
                         isDraggingOptionO = false;
@@ -113,11 +120,12 @@ int main() {
                         }
                         else {
                             optionH.setPosition(100, 500); // Return to the original position.
-                            optionO.setPosition(100, 500); // Return to the original position.
+                            optionO.setPosition(200, 500); // Return to the original position.
+                            returnBoxesToOriginalPlaces = true;
+                            allBoxesFilled = false;
                         }
-                        if ((isOptionHInSlot1 && isOptionOInSlot2) || (isOptionHInSlot2 && isOptionOInSlot1)) {
-                            // Both options were placed correctly, display finish text.
-                            finishTextShown = true;
+                        if (isOptionHInSlot1 && isOptionOInSlot2) {
+                            allBoxesFilled = true;
                         }
                     }
                 }
@@ -145,35 +153,76 @@ int main() {
                 window.draw(answerSlot1);
                 window.draw(answerSlot2);
 
-                if (finishTextShown) {
-                    sf::Text finishText;
-                    finishText.setFont(font);
-                    finishText.setCharacterSize(40);
-                    finishText.setFillColor(sf::Color::White);
+                if (returnBoxesToOriginalPlaces) {
+                    // Reset the game if options are placed incorrectly.
+                    isOptionHInSlot1 = false;
+                    isOptionHInSlot2 = false;
+                    isOptionOInSlot1 = false;
+                    isOptionOInSlot2 = false;
+                    optionH.setPosition(100, 500);
+                    optionO.setPosition(200, 500);
+                    returnBoxesToOriginalPlaces = false;
+                }
+            
 
-                    if ((isOptionHInSlot1 && isOptionOInSlot2)) {
-                        finishText.setString("Congratulations, you win!");
+                // Check the positions after all boxes are filled
+                if (allBoxesFilled) {
+                    if (isOptionHInSlot1 && isOptionOInSlot2) {
+                        // Blue option on the left and red option on the right, take 10 from the enemy.
+                        enemyHealth -= 10;
                     }
                     else {
-                        finishText.setString("Options placed incorrectly. Restarting game...");
-                        // Reset the game if options are placed incorrectly.
-                        isOptionHInSlot1 = false;
-                        isOptionHInSlot2 = false;
-                        isOptionOInSlot1 = false;
-                        isOptionOInSlot2 = false;
-                        optionH.setPosition(100, 500);
-                        optionO.setPosition(200, 500);
-                        finishTextShown = false;
+                        // Blue option on the right and red option on the left, take 10 from the player.
+                        playerHealth -= 10;
                     }
-
-                    finishText.setPosition(250, 300);
-                    window.draw(finishText);
+                    returnBoxesToOriginalPlaces = true;
+                    allBoxesFilled = false;
                 }
+            }
+
+            // Display player and enemy health
+            sf::Text playerHealthText;
+            playerHealthText.setFont(font);
+            playerHealthText.setCharacterSize(20);
+            playerHealthText.setFillColor(sf::Color::White);
+            playerHealthText.setPosition(50, 50);
+            playerHealthText.setString("Player Health: " + std::to_string(playerHealth));
+            window.draw(playerHealthText);
+
+            sf::Text enemyHealthText;
+            enemyHealthText.setFont(font);
+            enemyHealthText.setCharacterSize(20);
+            enemyHealthText.setFillColor(sf::Color::White);
+            enemyHealthText.setPosition(600, 50);
+            enemyHealthText.setString("Enemy Health: " + std::to_string(enemyHealth));
+            window.draw(enemyHealthText);
+
+            // Check if the battle is over
+            if (playerHealth <= 0) {
+                // Player loses
+                sf::Text gameOverText;
+                gameOverText.setFont(font);
+                gameOverText.setCharacterSize(40);
+                gameOverText.setFillColor(sf::Color::White);
+                gameOverText.setString("Game Over! You lose.");
+                gameOverText.setPosition(250, 300);
+                window.draw(gameOverText);
+            }
+            else if (enemyHealth <= 0) {
+                // Player wins
+                sf::Text winText;
+                winText.setFont(font);
+                winText.setCharacterSize(40);
+                winText.setFillColor(sf::Color::White);
+                winText.setString("Congratulations, you win!");
+                winText.setPosition(250, 300);
+                window.draw(winText);
             }
 
             window.display();
         }
     }
-
     return 0;
 }
+    
+
