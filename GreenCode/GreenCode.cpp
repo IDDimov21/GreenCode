@@ -4,6 +4,9 @@
 #include "Question.h"
 #include <iostream>
 
+using namespace sf;
+
+
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Battle Game");
 
@@ -86,6 +89,15 @@ int main() {
                             isOptionHInSlot2 = true;
                             optionH.setPosition(answerSlot2.getPosition().x, answerSlot2.getPosition().y); // Snap to slot.
                         }
+                        else {
+                            optionH.setPosition(100, 500); // Return to the original position.
+                            optionO.setPosition(100, 500); // Return to the original position.
+                        }
+                        if ((isOptionHInSlot1 && isOptionOInSlot2) || (isOptionHInSlot2 && isOptionOInSlot1)) {
+                            // Both options were placed correctly, display finish text.
+                            finishTextShown = true;
+                        }
+
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     }
                     if (isDraggingOptionO) {
