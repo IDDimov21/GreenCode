@@ -197,7 +197,7 @@ int main() {
                     DrawRectangleRec(Option1, YELLOW);
                     DrawRectangleRec(Option2, GREEN);
 
- /*                   if (dmgplayer) {
+                    /*if (dmgplayer) {
                         dmgplayer = false;
 
                         DrawText("-25", 100, 70, 28, RED);
@@ -211,11 +211,17 @@ int main() {
                         }
                     }*/
                 }
-                if (enemy.EnemyHealth <= 0 || player.Health <= 0) {
+                if (enemy.EnemyHealth <= 0) {
                     gamestop = true;
                     deleteEnemy1 = true;
                     collision = false;
                     DrawText("CONGRATULATIONS YOU PASSED THE LEVEL!! ", 110, 350, 32, WHITE);
+                }
+                if (player.Health <= 0) {
+                    gamestop = true;
+                    deleteEnemy1 = true;
+                    collision = false;
+                    DrawText("Nice try :( !! Good luck next time!", 230, 350, 32, WHITE);
                 }
             }
 
