@@ -87,6 +87,12 @@ int main() {
     Rectangle Option1 = { option1.x, option1.y, 70, 70 };
     Rectangle Option2 = { option2.x, option2.y, 70, 70 };
 
+    float* original1X = &Option1.x, * original2X = &Option2.x, * original1Y = &Option1.y, * original2Y = &Option2.y;
+
+    int timer = 0; // Initialize the timer at 0
+    int startTime = GetTime(); // Get the current time in seconds
+    int currentTime;
+    
     bool collision = false;
     bool isDragging = false;
     bool isSnapped = false;
@@ -94,6 +100,12 @@ int main() {
     bool flag = false;
     bool Option1inCorrectSlot = false;
     bool Option2inCorrectSlot = false;
+    bool gamestop = false;
+    bool deleteEnemy1 = false;
+    bool isinslot1 = false;
+    bool isinslot2 = false;
+    bool dmgplayer = false;
+    bool dmgenemy = false;
 
     InitWindow(screenWidth, screenHeight, "Basic Game");
 
@@ -102,6 +114,8 @@ int main() {
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
+
+
         if (player.x <= 1.0f)
             player.x = 1.0f;
 
@@ -121,43 +135,98 @@ int main() {
         if (turncheck)
             DragNDrop(collision, isDragging, isSnapped, turncheck, Option2, OptionSlot1, OptionSlot2);
 
+        isinslot1 = CheckCollisionRecs(Option1, OptionSlot1);
+        if (!isinslot1) {
+            isinslot1 = CheckCollisionRecs(Option2, OptionSlot1);
+        }
+        isinslot2 = CheckCollisionRecs(Option1, OptionSlot2);
+        if (!isinslot2) {
+            isinslot2 = CheckCollisionRecs(Option2, OptionSlot2);
+        }
+
         Option1inCorrectSlot = CheckCollisionRecs(Option1, OptionSlot1);
         Option2inCorrectSlot = CheckCollisionRecs(Option2, OptionSlot2);
 
+        cout << isinslot1 << " " << isinslot2 << " " << Option1inCorrectSlot << " " << Option2inCorrectSlot << endl;
 
-        if (Option1inCorrectSlot && Option2inCorrectSlot && !flag && isSnapped) {
-            enemy.EnemyHealth -= 50;
-            flag = true;
-        }
-        // Draw
-        //----------------------------------------------------------------------------------
-        BeginDrawing();
-        ClearBackground(BLACK);
-        DrawRectangle(player.x, player.y, 70, 70, DARKBLUE);
-        DrawRectangle(enemy.x, enemy.y, 70, 70, RED);
-        if (collision) {
-            DrawText("PLAYER HEALTH: ", 50, 100, 28, WHITE);
-            DrawText(to_string(player.Health).c_str(), 300, 100, 30, WHITE);
-            DrawText("ENEMY HEALTH: ", 50, 150, 28, WHITE);
-            DrawText(to_string(enemy.EnemyHealth).c_str(), 290, 150, 30, WHITE);
+        if ((isinslot1 && !Option1inCorrectSlot) && (isinslot2 && !Option2inCorrectSlot) && isSnapped) {
+                *original1X = 300;
+                *original1Y = 600;
+                *original2X = 380;
+                *original2Y = 600;
+                player.Health -= 25;
+                dmgplayer = true;
+                isSnapped = false;
+                turncheck = false;
+            }
 
-            DrawRectangleLines(525, 100, 100, 75, WHITE);
-            DrawRectangleLines(650, 100, 100, 75, WHITE);
-
-            DrawRectangleRec(Option1, YELLOW);
-            DrawRectangleRec(Option2, GREEN);
-
-
+        if (Option1inCorrectSlot && Option2inCorrectSlot && isSnapped) {
+            *original1X = 300;
+            *original1Y = 600;
+            *original2X = 380;
+            *original2Y = 600;
+            enemy.EnemyHealth -= 25;
+            dmgenemy = true;
+            isSnapped = false;
+            turncheck = false;
         }
 
-        EndDrawing();
-        //----------------------------------------------------------------------------------
+
+
+            // Draw
+            //----------------------------------------------------------------------------------
+            BeginDrawing();
+            ClearBackground(BLACK);
+            
+            if (!deleteEnemy1) {
+                DrawRectangle(player.x, player.y, 70, 70, DARKBLUE);
+                DrawRectangle(enemy.x, enemy.y, 70, 70, RED);
+            }
+            if (collision) {
+                if (!gamestop) {
+                    
+                    DrawText("PLAYER HEALTH: ", 50, 70, 28, WHITE);
+                    DrawText(to_string(player.Health).c_str(), 300, 70, 30, WHITE);
+                    DrawText("ENEMY HEALTH: ", 50, 120, 28, WHITE);
+                    DrawText(to_string(enemy.EnemyHealth).c_str(), 290, 115, 30, WHITE);
+                    DrawText("Connect the elements of: Water", 50, 165, 28, WHITE);
+
+                    DrawRectangleLines(525, 100, 100, 75, WHITE);
+                    DrawRectangleLines(650, 100, 100, 75, WHITE);
+
+                    DrawRectangleRec(Option1, YELLOW);
+                    DrawRectangleRec(Option2, GREEN);
+
+ /*                   if (dmgplayer) {
+                        dmgplayer = false;
+
+                        DrawText("-25", 100, 70, 28, RED);
+                    }
+                    if (dmgenemy) {
+                        dmgenemy = false;
+                        currentTime = GetTime();
+                        timer = currentTime - startTime;
+                        if (timer <= 2) {
+                            DrawText("-25", 100, 120, 28, RED);
+                        }
+                    }*/
+                }
+                if (enemy.EnemyHealth <= 0 || player.Health <= 0) {
+                    gamestop = true;
+                    deleteEnemy1 = true;
+                    collision = false;
+                    DrawText("CONGRATULATIONS YOU PASSED THE LEVEL!! ", 110, 350, 32, WHITE);
+                }
+            }
+
+            EndDrawing();
+            //----------------------------------------------------------------------------------
+        }
+
+        // De-Initialization
+        //--------------------------------------------------------------------------------------
+        CloseWindow();        // Close window and OpenGL context
+        //--------------------------------------------------------------------------------------
+
+        return 0;
     }
-
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
-
-    return 0;
-}
