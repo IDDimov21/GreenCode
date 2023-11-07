@@ -144,7 +144,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GreenCode.cpp" />
+    <ClCompile Include="Hard.cpp" />
+    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="Normal.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Normal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
