@@ -113,7 +113,7 @@ int main() {
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-
+        
 
         if (player.x <= 1.0f)
             player.x = 1.0f;
@@ -184,27 +184,24 @@ int main() {
             dmgenemy = true;
             isSnapped = false;
             turncheck = false;
-            resetcounter += 1;
+            resetcounter += 1;  
         }
-
 
 
             // Draw
             //----------------------------------------------------------------------------------
             BeginDrawing();
             ClearBackground(BLACK);
-            
             if (!deleteEnemy1) {
                 DrawRectangle(player.x, player.y, 70, 70, DARKBLUE);
                 DrawRectangle(enemy.x, enemy.y, 70, 70, RED);
             }
             if (collision) {
                 if (!gamestop) {
-                    
                     DrawText("PLAYER HEALTH: ", 50, 70, 28, WHITE);
                     DrawText(to_string(player.Health).c_str(), 300, 70, 30, WHITE);
                     DrawText("ENEMY HEALTH: ", 50, 120, 28, WHITE);
-                    DrawText(to_string(enemy.EnemyHealth).c_str(), 290, 115, 30, WHITE);
+                    DrawText(to_string(enemy.EnemyHealth).c_str(), 290, 120, 30, WHITE);
                     if (resetcounter == 0) {
                         DrawText("Connect the elements of: Water", 50, 185, 28, WHITE);
                     }
@@ -238,6 +235,8 @@ int main() {
 
             EndDrawing();
             //----------------------------------------------------------------------------------
+            // Check if the display duration has passed and exit the loop
+
         }
 
         // De-Initialization
