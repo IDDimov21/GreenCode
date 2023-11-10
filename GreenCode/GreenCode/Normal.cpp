@@ -1,68 +1,16 @@
 #include "raylib.h" //raylib setup
 #include <iostream>
 #include <string>
+#include "gameStructures.h"
 using namespace std;
 
-//player structure
-struct Player {
-    float x;
-    float y;
-    int Health;
-}player;
-
-//enemies structure
-struct Enemy {
-    float x;
-    float y;
-    int EnemyHealth;
-    bool isAlive;
-}enemy;
-
-struct Option1 {
-    float x;
-    float y;
-}option1;
-
-//enemies structure
-struct Option2 {
-    float x;
-    float y;
-}option2;
-
-void DragNDrop(bool& collision, bool& isDragging, bool& isSnapped, bool& check1, Rectangle& Option, Rectangle& OptionSlot1, Rectangle& OptionSlot2) {
-
-    if (collision) {
-        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), Option)) {
-            isDragging = true;
-        }
-        if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
-            isDragging = false;
-            if (CheckCollisionRecs(Option, OptionSlot1)) {
-                Option.x = OptionSlot1.x + 14;
-                Option.y = OptionSlot1.y + 2;
-                isSnapped = true;
-                check1 = true;
-            }
-            if (CheckCollisionRecs(Option, OptionSlot2)) {
-                Option.x = OptionSlot2.x + 14;
-                Option.y = OptionSlot2.y + 2;
-                isSnapped = true;
-                check1 = true;
-            }
-        }
-        if (isDragging) {
-            Option.x = GetMouseX() - Option.width / 2;
-            Option.y = GetMouseY() - Option.height / 2;
-            isSnapped = false;
-        }
-    }
-}
 
 int main() {
-    // Initialization
-    //--------------------------------------------------------------------------------------
-    const int screenWidth = 1000;
-    const int screenHeight = 800;
+    Player player;
+    Enemy enemy;
+    Option option1, option2;
+    const int screenWidth = 1200;
+    const int screenHeight = 700;
 
     player.Health = 100;
     player.x = screenWidth / 5;
@@ -113,8 +61,6 @@ int main() {
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-        
-
         if (player.x <= 1.0f)
             player.x = 1.0f;
 
