@@ -6,13 +6,13 @@ using namespace std;
 
 void MoveAnimation(float& timer, int& frame, int maxFrames, float frameWidth, Texture2D Run, float& x1, float& y1) {
     timer += GetFrameTime();
-    if (timer >= 0.17f) {
+    if (timer >= 0.135f) {
         timer = 0.0f;
         frame += 1;
     }
 
     frame = frame % maxFrames;
-    DrawTextureRec(Run, Rectangle{ (frameWidth * frame), 0, frameWidth, (float)Run.width }, Vector2{ x1, y1 }, RAYWHITE);
+    DrawTextureRec(Run, Rectangle{ frameWidth * frame, 0, frameWidth, (float)Run.width }, Vector2{ x1, y1 }, RAYWHITE);
 }
 
 int main() {
@@ -66,6 +66,7 @@ int main() {
     bool isinslot2 = false;
     bool dmgplayer = false;
     bool dmgenemy = false;
+    bool check = false;
 
     Texture2D background = LoadTexture("resources/background.png");
     Texture2D character = LoadTexture("resources/CharaWalk.png");
@@ -81,20 +82,12 @@ int main() {
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
+
         if (player.x <= 1.0f)
             player.x = 1.0f;
 
         if (player.x == enemy.x - 70.0f) {
             collision = true;
-        }
-        if (!collision) {
-            if (IsKeyDown('D')) {
-                player.x += movespeed;
-                MoveAnimation(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character ,player.x, player.y);
-            }
-            if (IsKeyDown('A')) {
-                player.x -= movespeed;
-            }
         }
         if (!turncheck)
             DragNDrop(collision, isDragging, isSnapped, turncheck, Option1, OptionSlot1, OptionSlot2);
@@ -122,8 +115,7 @@ int main() {
             Option1inCorrectSlot = CheckCollisionRecs(Option1, OptionSlot2);
             Option2inCorrectSlot = CheckCollisionRecs(Option2, OptionSlot1);
         }
-
-        cout << isinslot1 << " " << isinslot2 << " " << Option1inCorrectSlot << " " << Option2inCorrectSlot << endl;
+        cout << maxFramesPlayer << " " << frameWidthPlayer << " " << framePlayer << endl;
 
         if ((isinslot1 && !Option1inCorrectSlot) && (isinslot2 && !Option2inCorrectSlot) && isSnapped) {
                 *original1X = 300;
@@ -161,6 +153,7 @@ int main() {
             ClearBackground(WHITE);
             DrawTexture(background, screenWidth/2 - 600, screenHeight/2-390, WHITE);
             DrawTexture(character, player.x, player.y, WHITE);
+
             if (!deleteEnemy1) {
                 DrawRectangle(player.x, player.y, 70, 70, DARKBLUE);
                 DrawRectangle(enemy.x, enemy.y, 70, 70, RED);
@@ -199,6 +192,16 @@ int main() {
                     deleteEnemy1 = true;
                     collision = false;
                     DrawText("Nice try :( !! Good luck next time!", 300, 350, 32, WHITE);
+                }
+            }
+            if (!collision) {
+                if (IsKeyDown('D')) {
+                    player.x += movespeed;
+                    MoveAnimation(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, player.x, player.y);
+                }
+                if (IsKeyDown('A')) {
+                    player.x -= movespeed;
+                    MoveAnimation(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, player.x, player.y);
                 }
             }
 
