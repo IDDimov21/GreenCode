@@ -4,13 +4,26 @@
 #include "gameStructures.h"
 using namespace std;
 
+void MoveAnimation(float& timer, int& frame, int maxFrames, float frameWidth, Texture2D Run, float& x1, float& y1) {
+    timer += GetFrameTime();
+    if (timer >= 0.17f) {
+        timer = 0.0f;
+        frame += 1;
+    }
+
+    frame = frame % maxFrames;
+    DrawTextureRec(Run, Rectangle{ (frameWidth * frame), 0, frameWidth, (float)Run.width }, Vector2{ x1, y1 }, RAYWHITE);
+}
 
 int main() {
+
     Player player;
     Enemy enemy;
     Option option1, option2;
+
     const int screenWidth = 1200;
-    const int screenHeight = 700;
+    const int screenHeight = 800;
+    InitWindow(screenWidth, screenHeight, "Basic Game");
 
     player.Health = 100;
     player.x = screenWidth / 5;
@@ -54,7 +67,14 @@ int main() {
     bool dmgplayer = false;
     bool dmgenemy = false;
 
-    InitWindow(screenWidth, screenHeight, "Basic Game");
+    Texture2D background = LoadTexture("resources/background.png");
+    Texture2D character = LoadTexture("resources/CharaWalk.png");
+
+    float frameWidthPlayer = (float)(character.width / 6);
+    int maxFramesPlayer = (int)(character.width / (int)frameWidthPlayer);
+    float timer = 0.0f;
+    int framePlayer = 0;
+
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
 
@@ -70,6 +90,7 @@ int main() {
         if (!collision) {
             if (IsKeyDown('D')) {
                 player.x += movespeed;
+                MoveAnimation(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character ,player.x, player.y);
             }
             if (IsKeyDown('A')) {
                 player.x -= movespeed;
@@ -137,7 +158,9 @@ int main() {
             // Draw
             //----------------------------------------------------------------------------------
             BeginDrawing();
-            ClearBackground(BLACK);
+            ClearBackground(WHITE);
+            DrawTexture(background, screenWidth/2 - 600, screenHeight/2-390, WHITE);
+            DrawTexture(character, player.x, player.y, WHITE);
             if (!deleteEnemy1) {
                 DrawRectangle(player.x, player.y, 70, 70, DARKBLUE);
                 DrawRectangle(enemy.x, enemy.y, 70, 70, RED);
@@ -169,13 +192,13 @@ int main() {
                     gamestop = true;
                     deleteEnemy1 = true;
                     collision = false;
-                    DrawText("CONGRATULATIONS YOU PASSED THE LEVEL!! ", 110, 350, 32, WHITE);
+                    DrawText("CONGRATULATIONS YOU PASSED THE LEVEL!! ", 200, 350, 32, WHITE);
                 }
                 if (player.Health <= 0) {
                     gamestop = true;
                     deleteEnemy1 = true;
                     collision = false;
-                    DrawText("Nice try :( !! Good luck next time!", 230, 350, 32, WHITE);
+                    DrawText("Nice try :( !! Good luck next time!", 300, 350, 32, WHITE);
                 }
             }
 
@@ -189,6 +212,6 @@ int main() {
         //--------------------------------------------------------------------------------------
         CloseWindow();        // Close window and OpenGL context
         //--------------------------------------------------------------------------------------
-
+        UnloadTexture(background);
         return 0;
     }
