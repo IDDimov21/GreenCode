@@ -107,6 +107,37 @@ void DrawHealth(int Health, int EnemyHealth) {
     DrawText(to_string(EnemyHealth).c_str(), 1110, 55, 30, WHITE);
 }
 
+void DragNDropCheckAndDamage(bool& isinslot1, bool& isinslot2, bool& Option1inCorrectSlot, bool& Option2inCorrectSlot, bool& isSnapped, bool& turncheck, bool& dmgplayer, bool& dmgenemy, float *original1X, float* original1Y, float* original2X, float* original2Y, int& Health, int& EnemyHealth, int& counter, int& resetcounter) {
+    if ((isinslot1 && !Option1inCorrectSlot) && (isinslot2 && !Option2inCorrectSlot) && isSnapped) {
+        *original1X = 300;
+        *original1Y = 600;
+        *original2X = 380;
+        *original2Y = 600;
+        Health -= 25;
+        dmgplayer = true;
+        isSnapped = false;
+        turncheck = false;
+    }
+
+    if (Option1inCorrectSlot && Option2inCorrectSlot && isSnapped) {
+        *original1X = 300;
+        *original1Y = 600;
+        *original2X = 380;
+        *original2Y = 600;
+        if (counter == 0) {
+            EnemyHealth -= 40;
+            counter++;
+        }
+        else {
+            EnemyHealth -= 30;
+        }
+        dmgenemy = true;
+        isSnapped = false;
+        turncheck = false;
+        resetcounter += 1;
+    }
+}
+
 int main() {
 
     Player player;
@@ -195,34 +226,7 @@ int main() {
 
         NewObjective(resetcounter, Option1inCorrectSlot, Option2inCorrectSlot, Option1, Option2, OptionSlot1, OptionSlot2);
 
-        if ((isinslot1 && !Option1inCorrectSlot) && (isinslot2 && !Option2inCorrectSlot) && isSnapped) {
-                *original1X = 300;
-                *original1Y = 600;
-                *original2X = 380;
-                *original2Y = 600;
-                player.Health -= 25;
-                dmgplayer = true;
-                isSnapped = false;
-                turncheck = false;
-        }
-
-        if (Option1inCorrectSlot && Option2inCorrectSlot && isSnapped) {
-            *original1X = 300;
-            *original1Y = 600;
-            *original2X = 380;
-            *original2Y = 600;
-            if (counter == 0) {
-                enemy.EnemyHealth -= 40;
-                counter++;
-            }
-            else {
-                enemy.EnemyHealth -= 30;
-            }
-            dmgenemy = true;
-            isSnapped = false;
-            turncheck = false;
-            resetcounter += 1;  
-        }
+        DragNDropCheckAndDamage(isinslot1, isinslot2, Option1inCorrectSlot, Option2inCorrectSlot, isSnapped, turncheck, dmgplayer, dmgenemy, original1X, original1Y, original2X, original2Y, player.Health, enemy.EnemyHealth, counter, resetcounter);
 
 
             // Draw
