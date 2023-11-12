@@ -34,6 +34,72 @@ void MoveAnimationBackwards(float& timer, int& frame, int maxFrames, float frame
     DrawTextureRec(Run, Rectangle{ frameWidth * frame, 0, frameWidth, (float)Run.height }, Vector2{ x1, y1 }, RAYWHITE);
 }
 
+void barrier(float& x) {
+    if (x <= 0.0f)
+        x = 0.0f;
+    if (x >= 1200.0f)
+        x = 1200.0f;
+
+}
+
+void CheckIfAnswerIsInTheSlot(bool& isinslot1, bool& isinslot2, Rectangle Option1, Rectangle Option2, Rectangle OptionSlot1, Rectangle OptionSlot2) {
+    isinslot1 = CheckCollisionRecs(Option1, OptionSlot1);
+    if (!isinslot1) {
+        isinslot1 = CheckCollisionRecs(Option2, OptionSlot1);
+    }
+    isinslot2 = CheckCollisionRecs(Option1, OptionSlot2);
+    if (!isinslot2) {
+        isinslot2 = CheckCollisionRecs(Option2, OptionSlot2);
+    }
+}
+
+void NewObjective(int resetcounter, bool& Option1inCorrectSlot, bool& Option2inCorrectSlot, Rectangle Option1, Rectangle Option2, Rectangle OptionSlot1, Rectangle OptionSlot2) {
+    if (resetcounter == 0) {
+        Option1inCorrectSlot = CheckCollisionRecs(Option1, OptionSlot1);
+        Option2inCorrectSlot = CheckCollisionRecs(Option2, OptionSlot2);
+    }
+    else if (resetcounter == 1) {
+        Option1inCorrectSlot = CheckCollisionRecs(Option1, OptionSlot2);
+        Option2inCorrectSlot = CheckCollisionRecs(Option2, OptionSlot1);
+    }
+    else if (resetcounter == 2) {
+        Option1inCorrectSlot = CheckCollisionRecs(Option1, OptionSlot2);
+        Option2inCorrectSlot = CheckCollisionRecs(Option2, OptionSlot1);
+    }
+}
+
+void Moving(bool& collision,float& x, float& y ,int movespeed, float timer, int framePlayer, int maxFramesPlayer, float frameWidthPlayer, Texture2D character, Texture2D characterLeft) {
+    if (!collision) {
+        if (IsKeyDown('D')) {
+            x += movespeed;
+            MoveAnimation(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, x, y);
+        }
+        else if (IsKeyDown('A')) {
+            x -= movespeed;
+            MoveAnimationBackwards(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, characterLeft, x, y);
+        }
+        else {
+            // Draw the default frame if no movement keys are pressed
+            DrawTextureRec(character, Rectangle{ 0, 0, frameWidthPlayer, (float)character.height }, Vector2{ x, y }, RAYWHITE);
+        }
+    }
+}
+
+void CheckIfWinOrLose(bool gamestop, bool deleteEnemy1, bool collision ,int EnemyHealth, int Health) {
+    if (EnemyHealth <= 0) {
+        gamestop = true;
+        deleteEnemy1 = true;
+        collision = false;
+        DrawText("CONGRATULATIONS YOU PASSED THE LEVEL!! ", 200, 350, 32, WHITE);
+    }
+    if (Health <= 0) {
+        gamestop = true;
+        deleteEnemy1 = true;
+        collision = false;
+        DrawText("Nice try :( !! Good luck next time!", 300, 350, 32, WHITE);
+    }
+}
+
 int main() {
 
     Player player;
@@ -103,12 +169,9 @@ int main() {
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
 
-        
+        barrier(player.x);
 
-        if (player.x <= 1.0f)
-            player.x = 1.0f;
-
-        if (player.x == enemy.x - 70.0f) {
+        if (player.x == enemy.x - 100.0f) {
             collision = true;
         }
         if (!turncheck)
@@ -116,28 +179,9 @@ int main() {
         if (turncheck)
             DragNDrop(collision, isDragging, isSnapped, turncheck, Option2, OptionSlot1, OptionSlot2);
 
-        isinslot1 = CheckCollisionRecs(Option1, OptionSlot1);
-        if (!isinslot1) {
-            isinslot1 = CheckCollisionRecs(Option2, OptionSlot1);
-        }
-        isinslot2 = CheckCollisionRecs(Option1, OptionSlot2);
-        if (!isinslot2) {
-            isinslot2 = CheckCollisionRecs(Option2, OptionSlot2);
-        }
+        CheckIfAnswerIsInTheSlot(isinslot1, isinslot2, Option1, Option2, OptionSlot1, OptionSlot2);
 
-        if (resetcounter == 0) {
-            Option1inCorrectSlot = CheckCollisionRecs(Option1, OptionSlot1);
-            Option2inCorrectSlot = CheckCollisionRecs(Option2, OptionSlot2);
-        }
-        else if (resetcounter == 1) {
-            Option1inCorrectSlot = CheckCollisionRecs(Option1, OptionSlot2);
-            Option2inCorrectSlot = CheckCollisionRecs(Option2, OptionSlot1);
-        }
-        else if (resetcounter == 2) {
-            Option1inCorrectSlot = CheckCollisionRecs(Option1, OptionSlot2);
-            Option2inCorrectSlot = CheckCollisionRecs(Option2, OptionSlot1);
-        }
-        cout << maxFramesPlayer << " " << frameWidthPlayer << " " << framePlayer << endl;
+        NewObjective(resetcounter, Option1inCorrectSlot, Option2inCorrectSlot, Option1, Option2, OptionSlot1, OptionSlot2);
 
         if ((isinslot1 && !Option1inCorrectSlot) && (isinslot2 && !Option2inCorrectSlot) && isSnapped) {
                 *original1X = 300;
@@ -196,7 +240,6 @@ int main() {
                     else if (resetcounter == 2) {
                         DrawText("Connect the elements of: Sodium Chloride", 50, 185, 28, WHITE);
                     }
-
                     DrawRectangleLines(475, 215, 100, 75, WHITE);
                     DrawRectangleLines(650, 215, 100, 75, WHITE);
 
@@ -204,33 +247,10 @@ int main() {
                     DrawRectangleRec(Option2, GREEN);
 
                 }
-                if (enemy.EnemyHealth <= 0) {
-                    gamestop = true;
-                    deleteEnemy1 = true;
-                    collision = false;
-                    DrawText("CONGRATULATIONS YOU PASSED THE LEVEL!! ", 200, 350, 32, WHITE);
-                }
-                if (player.Health <= 0) {
-                    gamestop = true;
-                    deleteEnemy1 = true;
-                    collision = false;
-                    DrawText("Nice try :( !! Good luck next time!", 300, 350, 32, WHITE);
-                }
+                CheckIfWinOrLose(gamestop, deleteEnemy1, collision, enemy.EnemyHealth, player.Health);
             }
-            if (!collision) {
-                if (IsKeyDown('D')) {
-                    player.x += movespeed;
-                    MoveAnimation(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, player.x, player.y);
-                }
-                else if (IsKeyDown('A')) {
-                    player.x -= movespeed;
-                    MoveAnimationBackwards(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, characterLeft, player.x, player.y);
-                }
-                else {
-                    // Draw the default frame if no movement keys are pressed
-                    DrawTextureRec(character, Rectangle{ 0, 0, frameWidthPlayer, (float)character.height }, Vector2{ player.x, player.y }, RAYWHITE);
-                }
-            }
+
+            Moving(collision, player.x, player.y, movespeed, timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, characterLeft);
 
             EndDrawing();
             //----------------------------------------------------------------------------------
