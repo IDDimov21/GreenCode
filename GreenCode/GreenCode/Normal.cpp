@@ -68,7 +68,7 @@ void NewObjective(int resetcounter, bool& Option1inCorrectSlot, bool& Option2inC
     }
 }
 
-void Moving(bool& collision,float& x, float& y ,int movespeed, float timer, int framePlayer, int maxFramesPlayer, float frameWidthPlayer, Texture2D character, Texture2D characterLeft) {
+void Moving(bool& collision,float& x, float& y ,int movespeed, float& timer, int& framePlayer, int maxFramesPlayer, float frameWidthPlayer, Texture2D character, Texture2D characterLeft) {
     if (!collision) {
         if (IsKeyDown('D')) {
             x += movespeed;
@@ -98,6 +98,13 @@ void CheckIfWinOrLose(bool gamestop, bool deleteEnemy1, bool collision ,int Enem
         collision = false;
         DrawText("Nice try :( !! Good luck next time!", 300, 350, 32, WHITE);
     }
+}
+
+void DrawHealth(int Health, int EnemyHealth) {
+    DrawText("PLAYER HEALTH: ", 50, 55, 28, WHITE);
+    DrawText(to_string(Health).c_str(), 300, 55, 30, WHITE);
+    DrawText("ENEMY HEALTH: ", 875, 55, 28, WHITE);
+    DrawText(to_string(EnemyHealth).c_str(), 1110, 55, 30, WHITE);
 }
 
 int main() {
@@ -227,10 +234,7 @@ int main() {
             if (collision) {
                 if (!gamestop) {
                     DrawTextureRec(character, Rectangle{ 0, 0, frameWidthPlayer, (float)character.height }, Vector2{ player.x, player.y }, RAYWHITE);
-                    DrawText("PLAYER HEALTH: ", 50, 55, 28, WHITE);
-                    DrawText(to_string(player.Health).c_str(), 300, 55, 30, WHITE);
-                    DrawText("ENEMY HEALTH: ", 875, 55, 28, WHITE);
-                    DrawText(to_string(enemy.EnemyHealth).c_str(), 1110, 55, 30, WHITE);
+                    DrawHealth(player.Health, enemy.EnemyHealth);
                     if (resetcounter == 0) {
                         DrawText("Connect the elements of: Water", 395, 135, 28, WHITE);
                     }
