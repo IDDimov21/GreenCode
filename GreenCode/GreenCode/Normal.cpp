@@ -52,6 +52,8 @@ int main() {
     float* original1X = &Option1.x, * original2X = &Option2.x, * original1Y = &Option1.y, * original2Y = &Option2.y;
 
     Texture2D background = LoadTexture("resources/background.png");
+    Texture2D textbg = LoadTexture("resources/text1.png");
+    Texture2D textbg2 = LoadTexture("resources/text2.png");
     Texture2D character = LoadTexture("resources/CharaWalk.png");
     Texture2D characterLeft = LoadTexture("resources/CharaWalkBack.png");
     Texture2D Enemy = LoadTexture("resources/enemyPotion.png");
@@ -101,24 +103,35 @@ int main() {
             if (collision) {
                 if (!gamestop) {
                     DrawTextureRec(character, Rectangle{ 0, 0, frameWidthPlayer, (float)character.height }, Vector2{ player.x, player.y }, RAYWHITE);
+                    DrawTexture(textbg, 25, 40, WHITE);
+                    DrawTexture(textbg, 840, 40, WHITE);
                     DrawHealth(player.Health, enemy.EnemyHealth);
+
                     if (resetcounter == 0) {
+                        DrawTexture(textbg2, 380, 115, WHITE);
+                        DrawRectangle(475, 215, 100, 75, WHITE);
+                        DrawRectangle(650, 215, 100, 75, WHITE);
                         DrawTexture(H, Option1.x, Option1.y, WHITE);
                         DrawTexture(O, Option2.x, Option2.y, WHITE);
                         DrawText("Connect the elements of: Water", 395, 135, 28, WHITE);
                     }
                     else if (resetcounter == 1) {
+                        DrawTexture(textbg2, 380, 115, WHITE);
+                        DrawRectangle(475, 215, 100, 75, WHITE);
+                        DrawRectangle(650, 215, 100, 75, WHITE);
                         DrawTexture(Cl, Option1.x, Option1.y, WHITE);
                         DrawTexture(Na, Option2.x, Option2.y, WHITE);
-                        DrawText("Connect the elements of: Hydrochloric Acid", 325, 135, 28, WHITE);
+                        DrawText("Connect the elements of: Hydrochloric Acid", 390, 150, 20, WHITE);
                     }
                     else if (resetcounter == 2) {
+                        DrawTexture(textbg2, 380, 115, WHITE);
+                        DrawRectangle(475, 215, 100, 75, WHITE);
+                        DrawRectangle(650, 215, 100, 75, WHITE);
                         DrawTexture(Cl, Option1.x, Option1.y, WHITE);
                         DrawTexture(H, Option2.x, Option2.y, WHITE);
-                        DrawText("Connect the elements of: Sodium Chloride", 325, 135, 28, WHITE);
+                        DrawText("Connect the elements of: Sodium Chloride", 400, 150, 20, WHITE);
                     }
-                    DrawRectangleLines(475, 215, 100, 75, WHITE);
-                    DrawRectangleLines(650, 215, 100, 75, WHITE);
+
 
                 }
                 CheckIfWinOrLose(gamestop, deleteEnemy1, collision, enemy.EnemyHealth, player.Health);
