@@ -1,6 +1,7 @@
 #include "raylib.h" //raylib setup
 #include <iostream>
 #include <string>
+#include "Normal.h"
 #include "dragAndDrop.h"
 #include "moveFunctions.h"
 #include "gameLogic.h"
@@ -18,8 +19,10 @@ int main() {
 
     const int screenWidth = 1200;
     const int screenHeight = 800;
+
     InitWindow(screenWidth, screenHeight, "GreenCode Game");
     SetWindowIcon(icon);
+
     player.Health = 100;
     player.x = screenWidth / 5;
     player.y = 535;
@@ -47,21 +50,6 @@ int main() {
     Rectangle Option2 = { option2.x, option2.y, 70, 70 };
 
     float* original1X = &Option1.x, * original2X = &Option2.x, * original1Y = &Option1.y, * original2Y = &Option2.y;
-    
-    bool collision = false;
-    bool isDragging = false;
-    bool isSnapped = false;
-    bool turncheck = false;
-    bool flag = false;
-    bool Option1inCorrectSlot = false;
-    bool Option2inCorrectSlot = false;
-    bool gamestop = false;
-    bool deleteEnemy1 = false;
-    bool isinslot1 = false;
-    bool isinslot2 = false;
-    bool dmgplayer = false;
-    bool dmgenemy = false;
-    bool check = false;
 
     Texture2D background = LoadTexture("resources/background.png");
     Texture2D character = LoadTexture("resources/CharaWalk.png");
@@ -80,7 +68,6 @@ int main() {
     int maxFramesEnemy = (int)(Enemy.width / (int)frameWidthPlayer);
     int frameEnemy = 0;
     float timer2 = 0.0f;
-
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
 
@@ -132,8 +119,6 @@ int main() {
                     }
                     DrawRectangleLines(475, 215, 100, 75, WHITE);
                     DrawRectangleLines(650, 215, 100, 75, WHITE);
-
-                    
 
                 }
                 CheckIfWinOrLose(gamestop, deleteEnemy1, collision, enemy.EnemyHealth, player.Health);
