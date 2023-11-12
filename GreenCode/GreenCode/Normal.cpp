@@ -110,12 +110,12 @@ int main() {
                     else if (resetcounter == 1) {
                         DrawTexture(Cl, Option1.x, Option1.y, WHITE);
                         DrawTexture(Na, Option2.x, Option2.y, WHITE);
-                        DrawText("Connect the elements of: Hydrochloric Acid", 50, 185, 28, WHITE);
+                        DrawText("Connect the elements of: Hydrochloric Acid", 325, 135, 28, WHITE);
                     }
                     else if (resetcounter == 2) {
                         DrawTexture(Cl, Option1.x, Option1.y, WHITE);
                         DrawTexture(H, Option2.x, Option2.y, WHITE);
-                        DrawText("Connect the elements of: Sodium Chloride", 50, 185, 28, WHITE);
+                        DrawText("Connect the elements of: Sodium Chloride", 325, 135, 28, WHITE);
                     }
                     DrawRectangleLines(475, 215, 100, 75, WHITE);
                     DrawRectangleLines(650, 215, 100, 75, WHITE);
