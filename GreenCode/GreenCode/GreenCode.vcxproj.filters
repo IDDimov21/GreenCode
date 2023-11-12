@@ -27,12 +27,30 @@
     <ClCompile Include="gameStructures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="moveFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dragAndDrop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Normal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gameStructures.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="moveFunctions.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameLogic.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dragAndDrop.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

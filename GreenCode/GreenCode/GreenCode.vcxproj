@@ -116,12 +116,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\PROJECT\GreenCode\GreenCode\raylib\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GreenCode\GreenCode\GreenCode\raylib\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\PROJECT\GreenCode\GreenCode\raylib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>E:\GreenCode\GreenCode\GreenCode\raylib</AdditionalLibraryDirectories>
       <AdditionalDependencies>raylib.lib;winmm.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -144,13 +144,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dragAndDrop.cpp" />
+    <ClCompile Include="gameLogic.cpp" />
     <ClCompile Include="gameStructures.cpp" />
     <ClCompile Include="Hard.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="moveFunctions.cpp" />
     <ClCompile Include="Normal.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dragAndDrop.h" />
+    <ClInclude Include="gameLogic.h" />
     <ClInclude Include="gameStructures.h" />
+    <ClInclude Include="moveFunctions.h" />
     <ClInclude Include="Normal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

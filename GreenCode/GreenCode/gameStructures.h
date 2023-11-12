@@ -4,16 +4,15 @@
 #include "raylib.h"
 
 struct Player {
+    int Health;
     float x;
     float y;
-    int Health;
 };
 
 struct Enemy {
+    int EnemyHealth;
     float x;
     float y;
-    int EnemyHealth;
-    bool isAlive;
 };
 
 struct Option {
