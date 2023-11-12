@@ -37,8 +37,8 @@ void MoveAnimationBackwards(float& timer, int& frame, int maxFrames, float frame
 void barrier(float& x) {
     if (x <= 0.0f)
         x = 0.0f;
-    if (x >= 1200.0f)
-        x = 1200.0f;
+    if (x >= 1100.0f)
+        x = 1100.0f;
 
 }
 
@@ -85,7 +85,7 @@ void Moving(bool& collision,float& x, float& y ,int movespeed, float& timer, int
     }
 }
 
-void CheckIfWinOrLose(bool gamestop, bool deleteEnemy1, bool collision ,int EnemyHealth, int Health) {
+void CheckIfWinOrLose(bool& gamestop, bool& deleteEnemy1, bool& collision ,int& EnemyHealth, int& Health) {
     if (EnemyHealth <= 0) {
         gamestop = true;
         deleteEnemy1 = true;
