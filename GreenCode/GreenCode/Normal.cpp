@@ -122,8 +122,8 @@ int main() {
     player.y = 535;
 
     enemy.EnemyHealth = 100;
-    enemy.x = 700;
-    enemy.y = 535;
+    enemy.x = 850;
+    enemy.y = 515;
     float movespeed = 5;
 
     int counter = 0;
@@ -163,11 +163,16 @@ int main() {
     Texture2D background = LoadTexture("resources/background.png");
     Texture2D character = LoadTexture("resources/CharaWalk.png");
     Texture2D characterLeft = LoadTexture("resources/CharaWalkBack.png");
+    Texture2D Enemy = LoadTexture("resources/enemyPotion.png");
 
     float frameWidthPlayer = (float)(character.width / 6);
     int maxFramesPlayer = (int)(character.width / (int)frameWidthPlayer);
-    float timer = 0.0f;
     int framePlayer = 0;
+    float timer = 0.0f;
+    float frameWidthEnemy = (float)(Enemy.width / 4);
+    int maxFramesEnemy = (int)(Enemy.width / (int)frameWidthPlayer);
+    int frameEnemy = 0;
+    float timer2 = 0.0f;
 
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
@@ -225,12 +230,6 @@ int main() {
             BeginDrawing();
             ClearBackground(WHITE);
             DrawTexture(background, screenWidth/2 - 600, screenHeight/2-390, WHITE);
-            
-
-            if (!deleteEnemy1) {
-                DrawRectangle(player.x, player.y, 70, 70, DARKBLUE);
-                DrawRectangle(enemy.x, enemy.y, 70, 70, RED);
-            }
             if (collision) {
                 if (!gamestop) {
                     DrawTextureRec(character, Rectangle{ 0, 0, frameWidthPlayer, (float)character.height }, Vector2{ player.x, player.y }, RAYWHITE);
@@ -255,7 +254,7 @@ int main() {
             }
 
             Moving(collision, player.x, player.y, movespeed, timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, characterLeft);
-
+            MoveAnimation(timer2, frameEnemy, maxFramesEnemy, frameWidthEnemy, Enemy, enemy.x, enemy.y);
             EndDrawing();
             //----------------------------------------------------------------------------------
             // Check if the display duration has passed and exit the loop
