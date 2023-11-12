@@ -144,10 +144,12 @@ int main() {
     Enemy enemy;
     Option option1, option2;
 
+    Image icon = LoadImage("resources/Icon.png");
+
     const int screenWidth = 1200;
     const int screenHeight = 800;
-    InitWindow(screenWidth, screenHeight, "Basic Game");
-
+    InitWindow(screenWidth, screenHeight, "GreenCode Game");
+    SetWindowIcon(icon);
     player.Health = 100;
     player.x = screenWidth / 5;
     player.y = 535;
@@ -222,6 +224,7 @@ int main() {
         if (turncheck)
             DragNDrop(collision, isDragging, isSnapped, turncheck, Option2, OptionSlot1, OptionSlot2);
 
+
         CheckIfAnswerIsInTheSlot(isinslot1, isinslot2, Option1, Option2, OptionSlot1, OptionSlot2);
 
         NewObjective(resetcounter, Option1inCorrectSlot, Option2inCorrectSlot, Option1, Option2, OptionSlot1, OptionSlot2);
@@ -260,15 +263,8 @@ int main() {
             Moving(collision, player.x, player.y, movespeed, timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, characterLeft);
             MoveAnimation(timer2, frameEnemy, maxFramesEnemy, frameWidthEnemy, Enemy, enemy.x, enemy.y);
             EndDrawing();
-            //----------------------------------------------------------------------------------
-            // Check if the display duration has passed and exit the loop
-
         }
-
         // De-Initialization
-        //--------------------------------------------------------------------------------------
-        CloseWindow();        // Close window and OpenGL context
-        //--------------------------------------------------------------------------------------
-        UnloadTexture(background);
+        CloseWindow();
         return 0;
     }
