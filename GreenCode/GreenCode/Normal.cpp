@@ -46,11 +46,11 @@ int main() {
 
     player.Health = 100;
     player.x = screenWidth / 5;
-    player.y = screenHeight / 2;
+    player.y = 535;
 
     enemy.EnemyHealth = 100;
     enemy.x = 700;
-    enemy.y = screenHeight / 2;
+    enemy.y = 535;
     float movespeed = 5;
 
     int counter = 0;
@@ -64,8 +64,8 @@ int main() {
     Rectangle playerRec = { player.x, player.y, 75, 75 };
     Rectangle enemyRec = { enemy.x, player.y, 75, 75 };
 
-    Rectangle OptionSlot1 = { 525, 100, 100, 95 };
-    Rectangle OptionSlot2 = { 650, 100, 100, 95 };
+    Rectangle OptionSlot1 = { 475, 215, 100, 75 };
+    Rectangle OptionSlot2 = { 650, 215, 100, 75 };
 
     Rectangle Option1 = { option1.x, option1.y, 70, 70 };
     Rectangle Option2 = { option2.x, option2.y, 70, 70 };
@@ -182,6 +182,7 @@ int main() {
             }
             if (collision) {
                 if (!gamestop) {
+                    DrawTextureRec(character, Rectangle{ 0, 0, frameWidthPlayer, (float)character.height }, Vector2{ player.x, player.y }, RAYWHITE);
                     DrawText("PLAYER HEALTH: ", 50, 55, 28, WHITE);
                     DrawText(to_string(player.Health).c_str(), 300, 55, 30, WHITE);
                     DrawText("ENEMY HEALTH: ", 875, 55, 28, WHITE);
