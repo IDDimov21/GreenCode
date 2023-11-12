@@ -19,6 +19,21 @@ void MoveAnimation(float& timer, int& frame, int maxFrames, float frameWidth, Te
     DrawTextureRec(Run, Rectangle{ frameWidth * frame, 0, frameWidth, (float)Run.height }, Vector2{ x1, y1 }, RAYWHITE);
 }
 
+void MoveAnimationBackwards(float& timer, int& frame, int maxFrames, float frameWidth, Texture2D Run, float& x1, float& y1) {
+    timer += GetFrameTime();
+
+    // Control the frame switch based on timer
+    if (timer >= 0.135f) {
+        timer = 0.0f;
+        frame += 1;
+    }
+
+    frame = frame % maxFrames;  // Ensure the frame stays within the range
+
+    // Draw the specific frame from the spritesheet
+    DrawTextureRec(Run, Rectangle{ frameWidth * frame, 0, frameWidth, (float)Run.height }, Vector2{ x1, y1 }, RAYWHITE);
+}
+
 int main() {
 
     Player player;
@@ -74,7 +89,7 @@ int main() {
 
     Texture2D background = LoadTexture("resources/background.png");
     Texture2D character = LoadTexture("resources/CharaWalk.png");
-    Texture2D characterLeft = LoadTexture("resources/CharaWalk.png");
+    Texture2D characterLeft = LoadTexture("resources/CharaWalkBack.png");
 
     float frameWidthPlayer = (float)(character.width / 6);
     int maxFramesPlayer = (int)(character.width / (int)frameWidthPlayer);
@@ -208,7 +223,7 @@ int main() {
                 }
                 else if (IsKeyDown('A')) {
                     player.x -= movespeed;
-                    MoveAnimation(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, characterLeft, player.x, player.y);
+                    MoveAnimationBackwards(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, characterLeft, player.x, player.y);
                 }
                 else {
                     // Draw the default frame if no movement keys are pressed
