@@ -6,13 +6,17 @@ using namespace std;
 
 void MoveAnimation(float& timer, int& frame, int maxFrames, float frameWidth, Texture2D Run, float& x1, float& y1) {
     timer += GetFrameTime();
+
+    // Control the frame switch based on timer
     if (timer >= 0.135f) {
         timer = 0.0f;
         frame += 1;
     }
 
-    frame = frame % maxFrames;
-    DrawTextureRec(Run, Rectangle{ frameWidth * frame, 0, frameWidth, (float)Run.width }, Vector2{ x1, y1 }, RAYWHITE);
+    frame = frame % maxFrames;  // Ensure the frame stays within the range
+
+    // Draw the specific frame from the spritesheet
+    DrawTextureRec(Run, Rectangle{ frameWidth * frame, 0, frameWidth, (float)Run.height }, Vector2{ x1, y1 }, RAYWHITE);
 }
 
 int main() {
@@ -70,6 +74,7 @@ int main() {
 
     Texture2D background = LoadTexture("resources/background.png");
     Texture2D character = LoadTexture("resources/CharaWalk.png");
+    Texture2D characterLeft = LoadTexture("resources/CharaWalk.png");
 
     float frameWidthPlayer = (float)(character.width / 6);
     int maxFramesPlayer = (int)(character.width / (int)frameWidthPlayer);
@@ -82,6 +87,8 @@ int main() {
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
+
+        
 
         if (player.x <= 1.0f)
             player.x = 1.0f;
@@ -152,7 +159,7 @@ int main() {
             BeginDrawing();
             ClearBackground(WHITE);
             DrawTexture(background, screenWidth/2 - 600, screenHeight/2-390, WHITE);
-            DrawTexture(character, player.x, player.y, WHITE);
+            
 
             if (!deleteEnemy1) {
                 DrawRectangle(player.x, player.y, 70, 70, DARKBLUE);
@@ -160,12 +167,12 @@ int main() {
             }
             if (collision) {
                 if (!gamestop) {
-                    DrawText("PLAYER HEALTH: ", 50, 70, 28, WHITE);
-                    DrawText(to_string(player.Health).c_str(), 300, 70, 30, WHITE);
-                    DrawText("ENEMY HEALTH: ", 50, 120, 28, WHITE);
-                    DrawText(to_string(enemy.EnemyHealth).c_str(), 290, 120, 30, WHITE);
+                    DrawText("PLAYER HEALTH: ", 50, 55, 28, WHITE);
+                    DrawText(to_string(player.Health).c_str(), 300, 55, 30, WHITE);
+                    DrawText("ENEMY HEALTH: ", 875, 55, 28, WHITE);
+                    DrawText(to_string(enemy.EnemyHealth).c_str(), 1110, 55, 30, WHITE);
                     if (resetcounter == 0) {
-                        DrawText("Connect the elements of: Water", 50, 185, 28, WHITE);
+                        DrawText("Connect the elements of: Water", 395, 135, 28, WHITE);
                     }
                     else if (resetcounter == 1) {
                         DrawText("Connect the elements of: Hydrochloric Acid", 50, 185, 28, WHITE);
@@ -174,8 +181,8 @@ int main() {
                         DrawText("Connect the elements of: Sodium Chloride", 50, 185, 28, WHITE);
                     }
 
-                    DrawRectangleLines(525, 100, 100, 75, WHITE);
-                    DrawRectangleLines(650, 100, 100, 75, WHITE);
+                    DrawRectangleLines(475, 215, 100, 75, WHITE);
+                    DrawRectangleLines(650, 215, 100, 75, WHITE);
 
                     DrawRectangleRec(Option1, YELLOW);
                     DrawRectangleRec(Option2, GREEN);
@@ -199,9 +206,13 @@ int main() {
                     player.x += movespeed;
                     MoveAnimation(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, player.x, player.y);
                 }
-                if (IsKeyDown('A')) {
+                else if (IsKeyDown('A')) {
                     player.x -= movespeed;
-                    MoveAnimation(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, player.x, player.y);
+                    MoveAnimation(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, characterLeft, player.x, player.y);
+                }
+                else {
+                    // Draw the default frame if no movement keys are pressed
+                    DrawTextureRec(character, Rectangle{ 0, 0, frameWidthPlayer, (float)character.height }, Vector2{ player.x, player.y }, RAYWHITE);
                 }
             }
 
