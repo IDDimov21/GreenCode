@@ -67,6 +67,10 @@ int main() {
     Texture2D character = LoadTexture("resources/CharaWalk.png");
     Texture2D characterLeft = LoadTexture("resources/CharaWalkBack.png");
     Texture2D Enemy = LoadTexture("resources/enemyPotion.png");
+    Texture2D H = LoadTexture("resources/H.png");
+    Texture2D O = LoadTexture("resources/O.png");
+    Texture2D Na = LoadTexture("resources/Na.png");
+    Texture2D Cl = LoadTexture("resources/Cl.png");
 
     float frameWidthPlayer = (float)(character.width / 6);
     int maxFramesPlayer = (int)(character.width / (int)frameWidthPlayer);
@@ -112,19 +116,24 @@ int main() {
                     DrawTextureRec(character, Rectangle{ 0, 0, frameWidthPlayer, (float)character.height }, Vector2{ player.x, player.y }, RAYWHITE);
                     DrawHealth(player.Health, enemy.EnemyHealth);
                     if (resetcounter == 0) {
+                        DrawTexture(H, Option1.x, Option1.y, WHITE);
+                        DrawTexture(O, Option2.x, Option2.y, WHITE);
                         DrawText("Connect the elements of: Water", 395, 135, 28, WHITE);
                     }
                     else if (resetcounter == 1) {
+                        DrawTexture(Cl, Option1.x, Option1.y, WHITE);
+                        DrawTexture(Na, Option2.x, Option2.y, WHITE);
                         DrawText("Connect the elements of: Hydrochloric Acid", 50, 185, 28, WHITE);
                     }
                     else if (resetcounter == 2) {
+                        DrawTexture(Cl, Option1.x, Option1.y, WHITE);
+                        DrawTexture(H, Option2.x, Option2.y, WHITE);
                         DrawText("Connect the elements of: Sodium Chloride", 50, 185, 28, WHITE);
                     }
                     DrawRectangleLines(475, 215, 100, 75, WHITE);
                     DrawRectangleLines(650, 215, 100, 75, WHITE);
 
-                    DrawRectangleRec(Option1, YELLOW);
-                    DrawRectangleRec(Option2, GREEN);
+                    
 
                 }
                 CheckIfWinOrLose(gamestop, deleteEnemy1, collision, enemy.EnemyHealth, player.Health);

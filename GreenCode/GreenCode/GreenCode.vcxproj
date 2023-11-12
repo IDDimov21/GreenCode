@@ -116,12 +116,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\GreenCode\GreenCode\GreenCode\raylib\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PROJECT\GreenCode\GreenCode\raylib\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>E:\GreenCode\GreenCode\GreenCode\raylib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\PROJECT\GreenCode\GreenCode\raylib</AdditionalLibraryDirectories>
       <AdditionalDependencies>raylib.lib;winmm.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
