@@ -5,12 +5,12 @@
 void DragNDrop(bool& collision, bool& isDragging, bool& isSnapped, bool& check1, Rectangle& Option, Rectangle& OptionSlot1, Rectangle& OptionSlot2) {
     static Rectangle* currentDraggedOption = nullptr;
     if (collision) {
-        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), Option)) {
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), Option)) {
             isDragging = true;
             isSnapped = false;
             currentDraggedOption = &Option;
         }
-        if (IsMouseButtonUp(MOUSE_LEFT_BUTTON)) {
+        if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
             isDragging = false;
             currentDraggedOption = nullptr;
 

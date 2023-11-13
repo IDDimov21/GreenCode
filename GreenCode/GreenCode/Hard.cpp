@@ -61,6 +61,7 @@ int main() {
     Texture2D characterLeft = LoadTexture("resources/CharaWalkBack.png");
     Texture2D Enemy = LoadTexture("resources/enemyPotion.png");
     Texture2D Scroll = LoadTexture("resources/scroll.png");
+    Texture2D C = LoadTexture("resources/C.png");
     Texture2D H = LoadTexture("resources/H.png");
     Texture2D O = LoadTexture("resources/O.png");
     Texture2D Na = LoadTexture("resources/Na.png");
@@ -99,10 +100,10 @@ int main() {
 
         NewObjectiveHard(resetcounter, Option1inCorrectSlot, Option2inCorrectSlot, Option3inCorrectSlot, Option4inCorrectSlot,Option1, Option2, Option3, Option4, OptionSlot1, OptionSlot2);
 
-        DragNDropCheckAndDamageHard(isinslot1, isinslot2, Option1inCorrectSlot, Option2inCorrectSlot, Option3inCorrectSlot, isSnapped1, turncheck1, dmgplayer, dmgenemy, original1X, original1Y, original2X, original2Y, original3X, original3Y, original4X, original4Y, player.Health, enemy.EnemyHealth, counter, resetcounter);
-        DragNDropCheckAndDamageHard(isinslot1, isinslot2, Option1inCorrectSlot, Option2inCorrectSlot, Option3inCorrectSlot, isSnapped2, turncheck2, dmgplayer, dmgenemy, original1X, original1Y, original2X, original2Y, original3X, original3Y, original4X, original4Y, player.Health, enemy.EnemyHealth, counter, resetcounter);
-        DragNDropCheckAndDamageHard(isinslot1, isinslot2, Option1inCorrectSlot, Option2inCorrectSlot, Option3inCorrectSlot, isSnapped3, turncheck3, dmgplayer, dmgenemy, original1X, original1Y, original2X, original2Y, original3X, original3Y, original4X, original4Y, player.Health, enemy.EnemyHealth, counter, resetcounter);
-        DragNDropCheckAndDamageHard(isinslot1, isinslot2, Option1inCorrectSlot, Option2inCorrectSlot, Option3inCorrectSlot, isSnapped4, turncheck4, dmgplayer, dmgenemy, original1X, original1Y, original2X, original2Y, original3X, original3Y, original4X, original4Y, player.Health, enemy.EnemyHealth, counter, resetcounter);
+        DragNDropCheckAndDamageHard(isinslot1, isinslot2, Option1inCorrectSlot, Option2inCorrectSlot, Option3inCorrectSlot, Option4inCorrectSlot, isSnapped1, turncheck1, dmgplayer, dmgenemy, original1X, original1Y, original2X, original2Y, original3X, original3Y, original4X, original4Y, player.Health, enemy.EnemyHealth, counter, resetcounter);
+        DragNDropCheckAndDamageHard(isinslot1, isinslot2, Option1inCorrectSlot, Option2inCorrectSlot, Option3inCorrectSlot, Option4inCorrectSlot, isSnapped2, turncheck2, dmgplayer, dmgenemy, original1X, original1Y, original2X, original2Y, original3X, original3Y, original4X, original4Y, player.Health, enemy.EnemyHealth, counter, resetcounter);
+        DragNDropCheckAndDamageHard(isinslot1, isinslot2, Option1inCorrectSlot, Option2inCorrectSlot, Option3inCorrectSlot, Option4inCorrectSlot, isSnapped3, turncheck3, dmgplayer, dmgenemy, original1X, original1Y, original2X, original2Y, original3X, original3Y, original4X, original4Y, player.Health, enemy.EnemyHealth, counter, resetcounter);
+        DragNDropCheckAndDamageHard(isinslot1, isinslot2, Option1inCorrectSlot, Option2inCorrectSlot, Option3inCorrectSlot, Option4inCorrectSlot, isSnapped4, turncheck4, dmgplayer, dmgenemy, original1X, original1Y, original2X, original2Y, original3X, original3Y, original4X, original4Y, player.Health, enemy.EnemyHealth, counter, resetcounter);
 
 
         // Draw
@@ -129,22 +130,22 @@ int main() {
                 }
                 else if (resetcounter == 1) {
                     DrawTexture(Scroll, 380, 115, WHITE);
-                    DrawRectangleLines(475, 215, 100, 75, BLACK);
-                    DrawRectangleLines(650, 215, 100, 75, BLACK);
+                    DrawRectangleLines(475, 190, 100, 75, BLACK);
+                    DrawRectangleLines(650, 190, 100, 75, BLACK);
                     DrawTexture(Cl, Option1.x, Option1.y, WHITE);
                     DrawTexture(Na, Option2.x, Option2.y, WHITE);
                     DrawTexture(H, Option3.x, Option3.y, WHITE);
                     DrawTexture(O, Option4.x, Option4.y, WHITE);
-                    DrawText("Connect the elements of: Oxygen", 390, 150, 20, BLACK);
+                    DrawText("Connect the elements of: Disodium oxide", 390, 150, 20, BLACK);
                 }
                 else if (resetcounter == 2) {
                     DrawTexture(Scroll, 380, 115, WHITE);
-                    DrawRectangleLines(475, 215, 100, 75, BLACK);
-                    DrawRectangleLines(650, 215, 100, 75, BLACK);
-                    DrawTexture(Cl, Option1.x, Option1.y, WHITE);
-                    DrawTexture(H, Option2.x, Option2.y, WHITE);
-                    DrawTexture(H, Option3.x, Option3.y, WHITE);
-                    DrawTexture(O, Option4.x, Option4.y, WHITE);
+                    DrawRectangleLines(475, 190, 100, 75, BLACK);
+                    DrawRectangleLines(650, 190, 100, 75, BLACK);
+                    DrawTexture(C, Option1.x, Option1.y, WHITE);
+                    DrawTexture(O, Option2.x, Option2.y, WHITE);
+                    DrawTexture(Cl, Option3.x, Option3.y, WHITE);
+                    DrawTexture(H, Option4.x, Option4.y, WHITE);
                     DrawText("Connect the elements of: Carbon Dioxide", 400, 150, 20, BLACK);
                 }
 
@@ -152,8 +153,8 @@ int main() {
             }
             CheckIfWinOrLose(gamestop, deleteEnemy1, collision, enemy.EnemyHealth, player.Health);
         }
-
-        Moving(collision, player.x, player.y, movespeed, timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, characterLeft);
+        if(!gamestop)
+            Moving(collision, player.x, player.y, movespeed, timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, characterLeft);
         MoveAnimation(timer2, frameEnemy, maxFramesEnemy, frameWidthEnemy, Enemy, enemy.x, enemy.y);
         EndDrawing();
     }
