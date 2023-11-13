@@ -8,14 +8,15 @@ void CheckIfWinOrLose(bool& gamestop, bool& deleteEnemy1, bool& collision, int& 
         gamestop = true;
         deleteEnemy1 = true;
         collision = false;
-        DrawRectangle(200, 180, 700, 50, BLACK);
-        DrawText("CONGRATULATIONS YOU PASSED THE LEVEL!! ", 200, 200, 32, GREEN);
+        DrawRectangle(200, 180, 750, 60, BLACK);
+        DrawText("CONGRATULATIONS YOU PASSED THE LEVEL!! ", 210, 200, 30, GREEN);
     }
     if (Health <= 0) {
         gamestop = true;
         deleteEnemy1 = true;
         collision = false;
-        DrawText("Nice try :( !! Good luck next time!", 300, 350, 32, WHITE);
+        DrawRectangle(275, 180, 650, 60, BLACK);
+        DrawText("Nice try :( !! Good luck next time!", 325, 195, 32, GREEN);
     }
 }
 

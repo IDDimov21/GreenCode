@@ -1,22 +1,7 @@
 #include "moveFunctions.h"
 #include "raylib.h"
 
-void Moving(bool& collision, float& x, float& y, int movespeed, float& timer, int& framePlayer, int maxFramesPlayer, float frameWidthPlayer, Texture2D character, Texture2D characterLeft) {
-    if (!collision) {
-        if (IsKeyDown('D')) {
-            x += movespeed;
-            MoveAnimation(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, x, y);
-        }
-        else if (IsKeyDown('A')) {
-            x -= movespeed;
-            MoveAnimationBackwards(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, characterLeft, x, y);
-        }
-        else {
-            // Draw the default frame if no movement keys are pressed
-            DrawTextureRec(character, Rectangle{ 0, 0, frameWidthPlayer, (float)character.height }, Vector2{ x, y }, RAYWHITE);
-        }
-    }
-}
+
 
 void MoveAnimation(float& timer, int& frame, int maxFrames, float frameWidth, Texture2D Run, float& x1, float& y1) {
     timer += GetFrameTime();
@@ -54,4 +39,21 @@ void barrier(float& x) {
     if (x >= 1100.0f)
         x = 1100.0f;
 
+}
+
+void Moving(bool& collision, float& x, float& y, int movespeed, float& timer, int& framePlayer, int maxFramesPlayer, float frameWidthPlayer, Texture2D character, Texture2D characterLeft) {
+    if (!collision) {
+        if (IsKeyDown('D')) {
+            x += movespeed;
+            MoveAnimation(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, character, x, y);
+        }
+        else if (IsKeyDown('A')) {
+            x -= movespeed;
+            MoveAnimationBackwards(timer, framePlayer, maxFramesPlayer, frameWidthPlayer, characterLeft, x, y);
+        }
+        else {
+            // Draw the default frame if no movement keys are pressed
+            DrawTextureRec(character, Rectangle{ 0, 0, frameWidthPlayer, (float)character.height }, Vector2{ x, y }, RAYWHITE);
+        }
+    }
 }

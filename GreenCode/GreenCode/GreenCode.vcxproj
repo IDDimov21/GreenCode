@@ -147,7 +147,6 @@
     <ClCompile Include="dragAndDrop.cpp" />
     <ClCompile Include="gameLogic.cpp" />
     <ClCompile Include="gameStructures.cpp" />
-    <ClCompile Include="Hard.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="moveFunctions.cpp" />
     <ClCompile Include="Normal.cpp" />

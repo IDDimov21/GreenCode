@@ -11,17 +11,6 @@ void CheckIfAnswerIsInTheSlot(bool& isinslot1, bool& isinslot2, Rectangle Option
     }
 }
 
-void CheckIfAnswerIsInTheSlotHard(bool& isinslot1, bool& isinslot2, Rectangle Option1, Rectangle Option2, Rectangle Option3, Rectangle Option4, Rectangle OptionSlot1, Rectangle OptionSlot2) {
-    isinslot1 = CheckCollisionRecs(Option1, OptionSlot1) || CheckCollisionRecs(Option2, OptionSlot1) || CheckCollisionRecs(Option3, OptionSlot1) || CheckCollisionRecs(Option4, OptionSlot1);
-    isinslot2 = CheckCollisionRecs(Option1, OptionSlot2) || CheckCollisionRecs(Option2, OptionSlot2) || CheckCollisionRecs(Option3, OptionSlot2) || CheckCollisionRecs(Option4, OptionSlot2);
-    /*if (!isinslot1) {
-        isinslot1 = CheckCollisionRecs(Option1, OptionSlot2) || CheckCollisionRecs(Option2, OptionSlot2) || CheckCollisionRecs(Option3, OptionSlot2) || CheckCollisionRecs(Option4, OptionSlot2);
-
-        if (isinslot1) {
-            isinslot2 = false;
-        }
-    }*/
-}
 
 void NewObjective(int resetcounter, bool& Option1inCorrectSlot, bool& Option2inCorrectSlot, Rectangle Option1, Rectangle Option2, Rectangle OptionSlot1, Rectangle OptionSlot2) {
     if (resetcounter == 0) {
@@ -38,20 +27,6 @@ void NewObjective(int resetcounter, bool& Option1inCorrectSlot, bool& Option2inC
     }
 }
 
-void NewObjectiveHard(int resetcounter, bool& Option1inCorrectSlot, bool& Option2inCorrectSlot, bool& Option3inCorrectSlot, bool& Option4inCorrectSlot,Rectangle Option1, Rectangle Option2, Rectangle Option3, Rectangle Option4,Rectangle OptionSlot1, Rectangle OptionSlot2) {
-    if (resetcounter == 0) {
-        Option1inCorrectSlot = CheckCollisionRecs(Option1, OptionSlot1);
-        Option3inCorrectSlot = CheckCollisionRecs(Option3, OptionSlot2);
-    }
-    else if (resetcounter == 1) {
-        Option2inCorrectSlot = CheckCollisionRecs(Option2, OptionSlot1);
-        Option4inCorrectSlot = CheckCollisionRecs(Option4, OptionSlot2);
-    }
-    else if (resetcounter == 2) {
-        Option1inCorrectSlot = CheckCollisionRecs(Option1, OptionSlot1);
-        Option2inCorrectSlot = CheckCollisionRecs(Option2, OptionSlot2);
-    }
-}
 
 void DragNDropCheckAndDamage(bool& isinslot1, bool& isinslot2, bool& Option1inCorrectSlot, bool& Option2inCorrectSlot, bool& isSnapped, bool& turncheck, bool& dmgplayer, bool& dmgenemy, float* original1X, float* original1Y, float* original2X, float* original2Y, int& Health, int& EnemyHealth, int& counter, int& resetcounter) {
 
@@ -72,7 +47,7 @@ void DragNDropCheckAndDamage(bool& isinslot1, bool& isinslot2, bool& Option1inCo
             *original1Y = 600;
             *original2X = 380;
             *original2Y = 600;
-            if (counter == 1) {
+            if (counter == 0) {
                 EnemyHealth -= 40;
                 counter++;
 
@@ -87,41 +62,3 @@ void DragNDropCheckAndDamage(bool& isinslot1, bool& isinslot2, bool& Option1inCo
         }
     }
 
-void DragNDropCheckAndDamageHard(bool& isinslot1, bool& isinslot2, bool& Option1inCorrectSlot, bool& Option2inCorrectSlot, bool& Option3inCorrectSlot, bool& Option4inCorrectSlot, bool& isSnapped, bool& turncheck, bool& dmgplayer, bool& dmgenemy, float* original1X, float* original1Y, float* original2X, float* original2Y, float* original3X, float* original3Y, float* original4X, float* original4Y, int& Health, int& EnemyHealth, int& counter, int& resetcounter) {
-    if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) && (isinslot1 && (!Option1inCorrectSlot || !Option2inCorrectSlot || !Option3inCorrectSlot || !Option4inCorrectSlot)) && (isinslot2 && (!Option1inCorrectSlot || !Option2inCorrectSlot || !Option3inCorrectSlot || !Option4inCorrectSlot)) && isSnapped) {
-        *original1X = 300;
-        *original1Y = 600;
-        *original2X = 380;
-        *original2Y = 600;
-        *original3X = 460;
-        *original3Y = 600;
-        *original4X = 540;
-        *original4Y = 600;
-        Health -= 10;
-        dmgplayer = true;
-        isSnapped = false;
-        turncheck = false;
-    }
-    if ((IsMouseButtonReleased(MOUSE_LEFT_BUTTON) && (Option1inCorrectSlot && Option3inCorrectSlot) || (Option1inCorrectSlot && Option2inCorrectSlot) || (Option2inCorrectSlot && Option4inCorrectSlot) && isSnapped)) {
-            *original1X = 300;
-            *original1Y = 600;
-            *original2X = 380;
-            *original2Y = 600;
-            *original3X = 460;
-            *original3Y = 600;
-            *original4X = 540;
-            *original4Y = 600;
-            if (counter == 0) {
-                EnemyHealth -= 10;
-                    counter++;
-            }
-            else {
-                EnemyHealth -= 10;
-            }
-        dmgenemy = true;
-        isSnapped = false;
-        turncheck = false;
-        resetcounter += 1;
-    }
-
-}
