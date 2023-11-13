@@ -1,11 +1,7 @@
-#include "raylib.h" //raylib setup
-#include <iostream>
-#include <string>
 #include "Normal.h"
 #include "dragAndDrop.h"
 #include "moveFunctions.h"
 #include "gameLogic.h"
-#include "gameStructures.h"
 using namespace std;
 
 

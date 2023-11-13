@@ -1,6 +1,4 @@
-#include "raylib.h" //raylib setup
-#include <iostream>
-#include <string>
+#include "Normal.h"
 
 using namespace std;
 
@@ -49,10 +47,10 @@ int main() {
             DrawTexture(button3, screenWidth / 2 - 250, screenHeight / 2 - 50, WHITE);
             DrawTexture(button4, screenWidth / 2 - 250, screenHeight / 2 + 100, WHITE);
             if (ChooseRectangle(PlayButton)) {
-                //
+                normal();
             }
             if (ChooseRectangle(Hard)) {
-                //
+                hard();
             }
         }
 

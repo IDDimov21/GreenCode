@@ -31,4 +31,5 @@ bool dmgplayer = false;
 bool dmgenemy = false;
 bool check = false;
 
-//int normal();
+int normal();
+int hard();
