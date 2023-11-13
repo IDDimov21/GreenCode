@@ -85,7 +85,8 @@ int main() {
             cout << isinslot1 << " " << isinslot2 << " " << isSnapped1 <<  endl;
             cout << Option1inCorrectSlot << " " << Option2inCorrectSlot << endl;
 
-        DragNDropCheckAndDamage(isinslot1, isinslot2, Option1inCorrectSlot, Option2inCorrectSlot, isSnapped, turncheck, dmgplayer, dmgenemy, original1X, original1Y, original2X, original2Y, player.Health, enemy.EnemyHealth, counter, resetcounter);
+        DragNDropCheckAndDamage(isinslot1, isinslot2, Option1inCorrectSlot, Option2inCorrectSlot, isSnapped1, turncheck1, dmgplayer, dmgenemy, original1X, original1Y, original2X, original2Y, player.Health, enemy.EnemyHealth, counter, resetcounter);
+        DragNDropCheckAndDamage(isinslot1, isinslot2, Option1inCorrectSlot, Option2inCorrectSlot, isSnapped2, turncheck2, dmgplayer, dmgenemy, original1X, original1Y, original2X, original2Y, player.Health, enemy.EnemyHealth, counter, resetcounter);
 
         CheckIfAnswerIsInTheSlot(isinslot1, isinslot2, Option1, Option2, OptionSlot1, OptionSlot2);
 
