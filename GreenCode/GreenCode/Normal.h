@@ -4,10 +4,10 @@
 #include <string>
 
 bool collision = false;
-bool isSnapped = false;
-bool isDragging1 = false;
-bool isSnapped1 = false;
 bool isDragging2 = false;
+bool isDragging1 = false;
+bool isSnapped = false;
+bool isSnapped1 = false;
 bool isSnapped2 = false;
 bool turncheck = false;
 bool flag = false;
@@ -21,6 +21,4 @@ bool dmgplayer = false;
 bool dmgenemy = false;
 bool check = false;
 
-
-
-void DragNDrop(bool& collision, bool& isDragging, bool& isSnapped, bool& check1, Rectangle& Option, Rectangle& OptionSlot1, Rectangle& OptionSlot2);
+int normal();

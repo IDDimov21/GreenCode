@@ -41,17 +41,17 @@
     <ClInclude Include="Normal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gameStructures.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="moveFunctions.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="gameLogic.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dragAndDrop.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameStructures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="moveFunctions.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

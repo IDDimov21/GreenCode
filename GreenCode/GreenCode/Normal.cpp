@@ -9,7 +9,7 @@
 using namespace std;
 
 
-int main() {
+int normal() {
 
     Player player;
     Enemy enemy;
