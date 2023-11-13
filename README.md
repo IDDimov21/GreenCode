@@ -1,6 +1,6 @@
 <h1 align = "center">👩🏽‍🔬Green Code🌎<h1>
 <p align = "center">
-<img src = "https://cdn.discordapp.com/attachments/900372498720362496/1171493293083869215/greencode-high-resolution-logo.png?ex=655ce126&is=654a6c26&hm=3bb0337f6ebdb8ebcae6066b3bf2eed367a07bb7badcc3ddfc1aecb5fdf144b9&" width = "800">
+<img src = "https://cdn.discordapp.com/attachments/900372498720362496/1171493293083869215/greencode-high-resolution-logo.png?ex=655ce126&is=654a6c26&hm=3bb0337f6ebdb8ebcae6066b3bf2eed367a07bb7badcc3ddfc1aecb5fdf144b9&" height = "550" width = "800">
 </p>
 
 This game is about connecting chemical elements to the corresponding positions so that they make the chemical name shown.

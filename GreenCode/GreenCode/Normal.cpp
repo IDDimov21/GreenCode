@@ -5,7 +5,7 @@
 using namespace std;
 
 
-int normal() {
+int main() {
 
     Player player;
     Enemy enemy;
@@ -78,8 +78,8 @@ int normal() {
         if (player.x == enemy.x - 100.0f) {
             collision = true;
         }
-            DragNDrop(collision, isDragging1, isSnapped1, turncheck, Option1, OptionSlot1, OptionSlot2);
-            DragNDrop(collision, isDragging2, isSnapped2, turncheck, Option2, OptionSlot1, OptionSlot2);
+            DragNDrop(collision, isDragging1, isSnapped1, turncheck1, Option1, OptionSlot1, OptionSlot2);
+            DragNDrop(collision, isDragging2, isSnapped2, turncheck2, Option2, OptionSlot1, OptionSlot2);
 
 
         CheckIfAnswerIsInTheSlot(isinslot1, isinslot2, Option1, Option2, OptionSlot1, OptionSlot2);
