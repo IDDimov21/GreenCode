@@ -10,7 +10,7 @@ void DragNDrop(bool& collision, bool& isDragging, bool& isSnapped, bool& check1,
             isSnapped = false;
             currentDraggedOption = &Option;
         }
-        if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
+        if (IsMouseButtonUp(MOUSE_LEFT_BUTTON)) {
             isDragging = false;
             currentDraggedOption = nullptr;
 
