@@ -82,10 +82,8 @@ int main() {
         if (player.x == enemy.x - 100.0f) {
             collision = true;
         }
-        if (!turncheck)
-            DragNDrop(collision, isDragging, isSnapped, turncheck, Option1, OptionSlot1, OptionSlot2);
-        if (turncheck)
-            DragNDrop(collision, isDragging, isSnapped, turncheck, Option2, OptionSlot1, OptionSlot2);
+            DragNDrop(collision, isDragging1, isSnapped1, turncheck, Option1, OptionSlot1, OptionSlot2);
+            DragNDrop(collision, isDragging2, isSnapped2, turncheck, Option2, OptionSlot1, OptionSlot2);
 
 
         CheckIfAnswerIsInTheSlot(isinslot1, isinslot2, Option1, Option2, OptionSlot1, OptionSlot2);

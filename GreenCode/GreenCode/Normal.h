@@ -4,8 +4,11 @@
 #include <string>
 
 bool collision = false;
-bool isDragging = false;
 bool isSnapped = false;
+bool isDragging1 = false;
+bool isSnapped1 = false;
+bool isDragging2 = false;
+bool isSnapped2 = false;
 bool turncheck = false;
 bool flag = false;
 bool Option1inCorrectSlot = false;
