@@ -19,9 +19,9 @@ This game is about connecting chemical elements to the corresponding positions s
    > ***GitHub profile***: [***SAToptunov21***](https://github.com/TLLozeva21)
 
 ## Documentation
-- <img src= "https://codingburgas-my.sharepoint.com/:p:/g/personal/krrusev21_codingburgas_bg/Ed7i8-VckwNDsGhqeow_bQ0B0dm2obJXCFKDKoQwAN0P8w?e=010utF"> PowerPoint presentation
-- <img src= "https://codingburgas-my.sharepoint.com/:w:/g/personal/krrusev21_codingburgas_bg/EaNFE8QyqXhBuFsAkkMYnUsBBQ2828t8Jlq6hTMTVY7O-g?e=sV7RjU"> Microsoft Word Documentation
-- <img src= "https://codingburgas-my.sharepoint.com/:x:/g/personal/krrusev21_codingburgas_bg/EfZ4W_tstuFCl9aDtsQ00w8BLaFOWjg1IePaA8Y7gPswaw?e=2HjvEJ"> Excel QA presentation
+**https://codingburgas-my.sharepoint.com/:p:/g/personal/krrusev21_codingburgas_bg/Ed7i8-VckwNDsGhqeow_bQ0B0dm2obJXCFKDKoQwAN0P8w?e=010utF** PowerPoint presentation
+**https://codingburgas-my.sharepoint.com/:w:/g/personal/krrusev21_codingburgas_bg/EaNFE8QyqXhBuFsAkkMYnUsBBQ2828t8Jlq6hTMTVY7O-g?e=sV7RjU** Microsoft Word Documentation
+**img src= "https://codingburgas-my.sharepoint.com/:x:/g/personal/krrusev21_codingburgas_bg/EfZ4W_tstuFCl9aDtsQ00w8BLaFOWjg1IePaA8Y7gPswaw?e=2HjvEJ** Excel QA presentation
 
 ## Used technologies 🖥️
 - <img src="https://user-images.githubusercontent.com/85344134/175822710-50145fd8-297a-4cb0-adaf-619ce5585e69.png" width="20"> Visual studio 2022
